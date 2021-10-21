@@ -3,6 +3,7 @@ package com.example.onepractice1.service;
 import com.example.onepractice1.database.Address;
 import com.example.onepractice1.database.Client;
 import com.example.onepractice1.database.Post;
+import com.example.onepractice1.models.enumuration.PostStatus;
 import com.example.onepractice1.repository.AddressRepository;
 import com.example.onepractice1.repository.ClientRepository;
 import com.example.onepractice1.repository.PostRepository;
@@ -31,6 +32,12 @@ public class PostOfficeService {
 
     public boolean savePost(Post post){
         return postRepository.savePost(post);
+    }
+
+    public void deliveredPost(Post post){
+        if(post != null && post.getStatus() == PostStatus.ON_THE_WAY) {
+            post.setStatus(PostStatus.DELIVERED);
+        }
     }
 
     public Post getPostById(int id){
@@ -72,5 +79,7 @@ public class PostOfficeService {
     public void deleteAddressById(int id){
         addressRepository.deleteAddressById(id);
     }
+
+
 
 }

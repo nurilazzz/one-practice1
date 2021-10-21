@@ -13,7 +13,7 @@ public class Address {
     private int flatNumber;
 
     public Address() {
-        id = nextId++;
+
     }
 
     public Address(String landmark, String city, String street, int houseNumber, int flatNumber) {
@@ -24,81 +24,84 @@ public class Address {
         this.flatNumber = flatNumber;
     }
 
-    public static AddressBuilder addressBuilder() {
-        return new Address().new AddressBuilder();
+    {
+        id = nextId++;
     }
-
-    public class AddressBuilder {
-        private AddressBuilder() {
-        }
-
-        public AddressBuilder landmark(String landmark) {
-            Address.this.landmark = landmark;
-            return this;
-        }
-
-        public AddressBuilder city(String city) {
-            Address.this.city = city;
-            return this;
-        }
-
-        public AddressBuilder street(String street) {
-            Address.this.street = street;
-            return this;
-        }
-
-        public AddressBuilder houseNumber(int houseNumber) {
-            Address.this.houseNumber = houseNumber;
-            return this;
-        }
-
-        public AddressBuilder flatNumber(int flatNumber) {
-            Address.this.flatNumber = flatNumber;
-            return this;
-        }
-
-        public Address build() {
-            return Address.this;
-        }
-    }
-
-
-    public static List<Address> getAddresses() {
-        Address address1 = Address.addressBuilder()
-                .landmark("KZ")
-                .city("Shymkent")
-                .street("Zhibek zholy")
-                .houseNumber(2)
-                .flatNumber(11)
-                .build();
-
-        Address address2 = Address.addressBuilder()
-                .landmark("KZ")
-                .city("Taraz")
-                .street("Kenesary")
-                .houseNumber(21)
-                .flatNumber(61)
-                .build();
-
-        return Arrays.asList(address1, address2);
-    }
-
-    public static boolean saveAddress(Address address) {
-        return getAddresses().add(address);
-    }
-
-    public static Address getAddressById(int id) {
-        for (Address address : getAddresses()) {
-            if (address.getId() == id) {
-                return address;
-            }
-        }
-        return null;
-    }
-
-    public static void deleteAddressById(int id) {
-        getAddresses().removeIf(address -> address.getId() == id);
-    }
+//    public static AddressBuilder addressBuilder() {
+//        return new Address().new AddressBuilder();
+//    }
+//
+//    public class AddressBuilder {
+//        private AddressBuilder() {
+//        }
+//
+//        public AddressBuilder landmark(String landmark) {
+//            Address.this.landmark = landmark;
+//            return this;
+//        }
+//
+//        public AddressBuilder city(String city) {
+//            Address.this.city = city;
+//            return this;
+//        }
+//
+//        public AddressBuilder street(String street) {
+//            Address.this.street = street;
+//            return this;
+//        }
+//
+//        public AddressBuilder houseNumber(int houseNumber) {
+//            Address.this.houseNumber = houseNumber;
+//            return this;
+//        }
+//
+//        public AddressBuilder flatNumber(int flatNumber) {
+//            Address.this.flatNumber = flatNumber;
+//            return this;
+//        }
+//
+//        public Address build() {
+//            return Address.this;
+//        }
+//    }
+//
+//
+//    public static List<Address> getAddresses() {
+//        Address address1 = Address.addressBuilder()
+//                .landmark("KZ")
+//                .city("Shymkent")
+//                .street("Zhibek zholy")
+//                .houseNumber(2)
+//                .flatNumber(11)
+//                .build();
+//
+//        Address address2 = Address.addressBuilder()
+//                .landmark("KZ")
+//                .city("Taraz")
+//                .street("Kenesary")
+//                .houseNumber(21)
+//                .flatNumber(61)
+//                .build();
+//
+//        return Arrays.asList(address1, address2);
+//    }
+//
+//    public static boolean saveAddress(Address address) {
+//        return getAddresses().add(address);
+//    }
+//
+//    public static Address getAddressById(int id) {
+//        for (Address address : getAddresses()) {
+//            if (address.getId() == id) {
+//                return address;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public static void deleteAddressById(int id) {
+//        getAddresses().removeIf(address -> address.getId() == id);
+//    }
 
 
     public static int getNextId() {
@@ -168,4 +171,5 @@ public class Address {
                 ", flatNumber=" + flatNumber +
                 '}';
     }
+
 }
