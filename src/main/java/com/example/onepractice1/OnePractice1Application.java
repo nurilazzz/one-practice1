@@ -17,7 +17,6 @@ public class OnePractice1Application {
     public static void main(String[] args) {
         SpringApplication.run(OnePractice1Application.class, args);
         postOfficeService.getAllPosts().forEach(System.out::println);
-        postOfficeService.getAllClients().forEach(System.out::println);
     }
 
 }

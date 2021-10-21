@@ -3,6 +3,7 @@ package com.example.onepractice1.database;
 import com.example.onepractice1.models.enumuration.PostStatus;
 import javafx.geometry.Pos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,12 +14,9 @@ public class Post {
     private PostStatus status;
     private Client receiver;
 
-    {
+    public Post() {
         id = nextId++;
         status = PostStatus.SENT;
-    }
-
-    public Post() {
     }
 
     public Post(String description, PostStatus status, Client receiver) {
@@ -56,7 +54,7 @@ public class Post {
     }
 
 
-    public static List<Post> getPosts(){
+    public static List<Post> getPosts() {
         Post post1 = Post.postBuilder()
                 .description("Post is in very good condition")
                 .status(PostStatus.SENT)
@@ -81,6 +79,7 @@ public class Post {
     public static boolean savePost(Post post) {
         return getPosts().add(post);
     }
+
 
     public static Post getPostById(int id) {
         for (Post post : getPosts()) {

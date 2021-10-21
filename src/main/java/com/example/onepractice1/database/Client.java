@@ -1,5 +1,7 @@
 package com.example.onepractice1.database;
 
+import javafx.geometry.Pos;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +15,8 @@ public class Client {
     private Address addressId;
     private List<Post> posts;
 
-    {
-        id = nextId++;
-    }
-
     public Client() {
+        id = nextId++;
     }
 
     public Client(String name, String surname, String email, Address address, List<Post> posts) {
@@ -167,8 +166,6 @@ public class Client {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", addressId=" + addressId +
-                ", posts=" + posts +
-                '}';
+                ", addressId=" + addressId;
     }
 }

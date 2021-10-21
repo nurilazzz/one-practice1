@@ -12,11 +12,8 @@ public class Address {
     private int houseNumber;
     private int flatNumber;
 
-    {
-        id = nextId++;
-    }
-
     public Address() {
+        id = nextId++;
     }
 
     public Address(String landmark, String city, String street, int houseNumber, int flatNumber) {
