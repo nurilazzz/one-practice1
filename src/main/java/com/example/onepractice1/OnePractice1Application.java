@@ -23,6 +23,11 @@ public class OnePractice1Application {
         postOfficeService.getAllPosts().forEach(System.out::println);
         postOfficeService.getAllClients().forEach(System.out::println);
         postOfficeService.getAllAddresses().forEach(System.out::println);
+
+        Post post = postOfficeService.getPostById(1);
+        postOfficeService.deliveredPost(post);
+
+        postOfficeService.getAllPosts().forEach(System.out::println);
     }
 
 }
