@@ -1,10 +1,10 @@
-package com.example.onepractice1.repository;
+package com.example.onepractice1.database;
 
 import com.example.onepractice1.models.Client;
 
 import java.util.List;
 
-public interface ClientRepository {
+public interface ClientDAO {
     List<Client> findAll();
     Client findClientById(Long id);
     void saveClient(Client client);
