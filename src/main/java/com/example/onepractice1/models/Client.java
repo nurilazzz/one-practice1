@@ -27,7 +27,7 @@ public class Client {
     @Column(name = "email")
     private String email;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "address_id", referencedColumnName = "id")
-//    private Address addressId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address addressId;
 }

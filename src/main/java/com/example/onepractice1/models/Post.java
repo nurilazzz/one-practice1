@@ -25,7 +25,7 @@ public class Post {
     @Column(name = "post_status")
     private String postStatus;
 
-//    @ManyToOne
-//    @JoinColumn(name = "client_id", nullable = false)
-//    private Client clientId;
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client clientId;
 }
