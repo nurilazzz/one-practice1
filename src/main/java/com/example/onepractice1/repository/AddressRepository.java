@@ -1,12 +1,12 @@
 package com.example.onepractice1.repository;
 
 import com.example.onepractice1.models.Address;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
-public interface AddressRepository {
-    List<Address> findAll();
-    Address findAddressById(Long id);
-    void saveAddress(Address address);
-    boolean deleteAddressById(Long id);
+@Transactional
+@Repository
+public interface AddressRepository extends JpaRepository<Address,Long> {
 }
