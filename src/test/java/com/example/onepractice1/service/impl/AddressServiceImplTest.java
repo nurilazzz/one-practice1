@@ -1,6 +1,7 @@
 package com.example.onepractice1.service.impl;
 
 import com.example.onepractice1.models.Address;
+import com.example.onepractice1.models.Client;
 import com.example.onepractice1.repository.AddressRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,35 +19,29 @@ class AddressServiceImplTest {
     @Mock
     AddressRepository addressRepository;
     @InjectMocks
-    AddressServiceImpl addressServiceImpl;
+    AddressServiceImpl sut;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        Address address1 = new Address(1L,"KZ","ALA","Saina",12,21);
-        addressServiceImpl.saveAddress(address1);
     }
 
     @Test
     void testGetAllAddresses() {
-        List<Address> result = addressServiceImpl.getAllAddresses();
-        Assertions.assertEquals(Arrays.<Address>asList(new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0)), result);
-    }
+        when(addressRepository.findAll()).thenReturn(Arrays.asList(new Address(1L, "KZ", "ALA", "Saina", 12, 21)));
+        List<Address> result = sut.getAllAddresses();
 
-    @Test
-    void testGetAddressById() {
-        Address result = addressServiceImpl.getAddressById(Long.valueOf(1));
-        Assertions.assertEquals(new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0), result);
+        Assertions.assertEquals(Arrays.asList(new Address(1L, "KZ", "ALA", "Saina", 12, 21)), result);
     }
 
     @Test
     void testSaveAddress() {
-        Address result = addressServiceImpl.saveAddress(new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0));
-        Assertions.assertEquals(new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0), result);
-    }
+        Address addressResult = new Address(1L, "KZ", "ALA", "Saina", 12, 21);
+        when(addressRepository.save(addressResult)).thenReturn(new Address(1L, "KZ", "ALA", "Saina", 12, 21));
 
-    @Test
-    void testDeleteAddressById() {
-        addressServiceImpl.deleteAddressById(Long.valueOf(1));
+        Address result1 = sut.saveAddress(addressResult);
+
+        Assertions.assertEquals(new Address(1L, "KZ", "ALA", "Saina", 12, 21), result1);
+
     }
 }

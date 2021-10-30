@@ -24,18 +24,10 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.findAll();
     }
 
-    @Override
-    public Address getAddressById(Long id) {
-        return addressRepository.findById(id).orElse(null);
-    }
 
     @Override
     public Address saveAddress(Address address) {
         return addressRepository.save(address);
     }
 
-    @Override
-    public void deleteAddressById(Long id) {
-        addressRepository.deleteById(id);
-    }
 }

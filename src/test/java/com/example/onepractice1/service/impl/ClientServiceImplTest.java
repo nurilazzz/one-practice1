@@ -2,6 +2,8 @@ package com.example.onepractice1.service.impl;
 
 import com.example.onepractice1.models.Address;
 import com.example.onepractice1.models.Client;
+import com.example.onepractice1.models.Post;
+import com.example.onepractice1.repository.AddressRepository;
 import com.example.onepractice1.repository.ClientRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,8 +20,11 @@ import static org.mockito.Mockito.*;
 class ClientServiceImplTest {
     @Mock
     ClientRepository clientRepository;
+    @Mock
+    AddressRepository addressRepository;
+
     @InjectMocks
-    ClientServiceImpl clientServiceImpl;
+    ClientServiceImpl sut;
 
     @BeforeEach
     void setUp() {
@@ -28,25 +33,30 @@ class ClientServiceImplTest {
 
     @Test
     void testGetAllClients() {
-        List<Client> result = clientServiceImpl.getAllClients();
-        Assertions.assertEquals(Arrays.<Client>asList(new Client(Long.valueOf(1), "clientName", "surname", "email", new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0))), result);
-    }
+        Address address = new Address(1L, "KZ", "ALA", "Saina", 12, 21);
+        addressRepository.save(address);
 
-    @Test
-    void testGetClientById() {
-        Client result = clientServiceImpl.getClientById(Long.valueOf(1));
-        Assertions.assertEquals(new Client(Long.valueOf(1), "clientName", "surname", "email", new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0)), result);
+        when(clientRepository.findAll()).thenReturn(Arrays.asList(new Client(1L, "Nurila", "Zharkynbek", "nurila@gmail.com", address)));
+        List<Client> result = sut.getAllClients();
+
+        Assertions.assertEquals(Arrays.asList(new Client(1L, "Nurila", "Zharkynbek", "nurila@gmail.com", address)), result);
     }
 
     @Test
     void testSaveClient() {
-        Client result = clientServiceImpl.saveClient(new Client(Long.valueOf(1), "clientName", "surname", "email", new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0)));
-        Assertions.assertEquals(new Client(Long.valueOf(1), "clientName", "surname", "email", new Address(Long.valueOf(1), "landmark", "city", "street", 0, 0)), result);
-    }
+        Address address = new Address(1L, "KZ", "ALA", "Saina", 12, 21);
+        addressRepository.save(address);
 
-    @Test
-    void testDeleteClientById() {
-        clientServiceImpl.deleteClientById(Long.valueOf(1));
+        Address addressResult = new Address(1L, "KZ", "ALA", "Saina", 12, 21);
+        addressRepository.save(address);
+
+        Client clientResult = new Client(1L,"Nurila","Zharkynbek","nurila@gmail.com",addressResult);
+        when(clientRepository.save(clientResult)).thenReturn(new Client(1L, "Nurila", "Zharkynbek", "nurila@gmail.com",address));
+
+        Client result1 = sut.saveClient(clientResult);
+
+        Assertions.assertEquals(new Client(1L, "Nurila","Zharkynbek","nurila@gmail.com",address), result1);
+
     }
 }
 

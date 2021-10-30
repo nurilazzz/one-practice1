@@ -12,5 +12,4 @@ public interface PostService {
 
     Post savePost(Post post);
 
-    void deletePostById(Long id);
 }
