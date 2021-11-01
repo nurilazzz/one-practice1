@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaRunner {
-    private KafkaProducer kafkaProducer;
+    private static KafkaProducer kafkaProducer;
 
     public void setKafkaProducer(KafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
     }
 
-    public void start(){
+    public static void start(){
         kafkaProducer.sendMessage(" ----- I am sending something fun ^_^ !!! ----- ");
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaConsumer {
 
-    @KafkaListener(topics = "random_topic", groupId = "group_id")
+    @KafkaListener(topics = "quickstart-events", groupId = "groupId")
     public void consume(String message) {
         System.out.println("Message received -> %s" + message);
     }

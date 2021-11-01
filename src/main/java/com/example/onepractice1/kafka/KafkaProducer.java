@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaProducer {
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
+    public void setTopicName(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Value(value = "${random_topic}")
+    @Value(value = "${quickstart-events}")
     private String topicName;
 
     public void sendMessage(String msg) {
