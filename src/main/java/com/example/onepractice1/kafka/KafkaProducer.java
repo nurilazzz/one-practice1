@@ -14,7 +14,7 @@ public class KafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Value(value = "${quickstart-events}")
+    @Value(value = "${nurila}")
     private String topicName;
 
     public void sendMessage(String msg) {
