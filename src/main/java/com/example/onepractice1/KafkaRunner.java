@@ -10,11 +10,12 @@ import org.springframework.stereotype.Component;
 public class KafkaRunner {
     private static KafkaProducer kafkaProducer;
 
-    public void setKafkaProducer(KafkaProducer kafkaProducer) {
+    @Autowired
+    public KafkaRunner(KafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
     }
 
     public static void start(){
-        kafkaProducer.sendMessage(" ----- I am sending something fun ^_^ !!! ----- ");
+        kafkaProducer.sendMessage("heelo");
     }
 }
