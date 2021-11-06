@@ -1,70 +1,71 @@
 package com.example.onepractice1.aop;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 @Aspect
 @Component
 public class Aspects {
-    private static final Logger log = LoggerFactory.getLogger(Aspects.class);
+    private static final Logger logger = LoggerFactory.getLogger(Aspects.class);
 
-    @Pointcut("execution(* com.example.onepractice1.controller.PostController.*(..))")
-    private void allMethodsFromPostController() { }
-
-    @Pointcut("execution(* com.example.onepractice1.controller.ClientController.*(..))")
-    private void allMethodsFromClientController() { }
-
-    @Pointcut("execution(* com.example.onepractice1.controller.AddressController.*(..))")
-    private void allMethodsFromAddressController() { }
-
-    @Before("allMethodsFromPostController() || allMethodsFromClientController() || allMethodsFromAddressController()")
-    public void endpointBefore(JoinPoint p) {
-        if (log.isTraceEnabled()) {
-            log.trace(p.getTarget().getClass().getSimpleName() + " " + p.getSignature().getName() + " START");
-            Object[] signatureArgs = p.getArgs();
-
-
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            try {
-                if (signatureArgs[0] != null) {
-                    log.trace("\nRequest object: \n" + mapper.writeValueAsString(signatureArgs[0]));
-                }
-            } catch (JsonProcessingException e) {
-            }
-        }
+    @Pointcut("execution(* com.example.onepractice1.controller.*.*(..))")
+    public void log() {
     }
 
-    @AfterReturning(value = ("allMethodsFromPostController() || allMethodsFromClientController() || allMethodsFromAddressController()")
-            , returning = "returnValue")
-    public void endpointAfterReturning(JoinPoint p, Object returnValue) {
-        if (log.isTraceEnabled()) {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            try {
-                log.trace("\nResponse object: \n" + mapper.writeValueAsString(returnValue));
-            } catch (JsonProcessingException e) {
-                System.out.println(e.getMessage());
-            }
-            log.trace(p.getTarget().getClass().getSimpleName() + " " + p.getSignature().getName() + " END");
-        }
+    @Before("log()")
+    public void doBefore(JoinPoint joinPoint) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String url = request.getRequestURL().toString();
+        String ip = request.getRemoteAddr();
+        String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
+
+        Object[] args = joinPoint.getArgs();
+        RequestLog requestLog = new RequestLog(url, ip, classMethod, args);
+
+        logger.info("Request : {}", requestLog);
     }
 
-    @AfterThrowing(value = ("allMethodsFromPostController() || allMethodsFromClientController() || allMethodsFromAddressController()"), throwing = "e")
-    public void endpointAfterThrowing(JoinPoint p, Exception e) {
-        if (log.isTraceEnabled()) {
-            System.out.println(e.getMessage());
+    @After("log()")
+    public void doAfter() {
+        logger.info("------------doAfter-----------------------");
+    }
 
-            e.printStackTrace();
+    @AfterReturning(returning = "result", pointcut = "log()")
+    public void doAfterReturning(Object result) {
+        logger.info("Result : {}", result);
+    }
 
+    private class RequestLog {
+        private String url;
+        private String ip;
+        private String classMethod;
+        private Object[] args;
 
-            log.error(p.getTarget().getClass().getSimpleName() + " " + p.getSignature().getName() + " " + e.getMessage());
+        public RequestLog(String url, String ip, String classMethod, Object[] args) {
+            this.url = url;
+            this.ip = ip;
+            this.classMethod = classMethod;
+            this.args = args;
+        }
+
+        @Override
+        public String toString() {
+            return "{" +
+                    "url='" + url + '\'' +
+                    ", ip='" + ip + '\'' +
+                    ", classMethod='" + classMethod + '\'' +
+                    ", args=" + Arrays.toString(args) +
+                    '}';
         }
     }
 }
+
