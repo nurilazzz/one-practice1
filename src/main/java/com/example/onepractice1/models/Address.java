@@ -23,15 +23,6 @@ public class Address {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "street")
-    private String street;
-
     @Column(name = "house_number")
     private int houseNumber;
-
-    @Column(name = "flat_number")
-    private int flatNumber;
-
-//    @OneToOne
-//    private Client clientId;
 }

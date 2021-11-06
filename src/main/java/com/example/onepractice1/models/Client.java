@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,16 +19,18 @@ public class Client {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "client_name")
-    private String clientName;
-
-    @Column(name = "surname")
-    private String surname;
-
     @Column(name = "email")
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address addressId;
+    @JoinColumn(name = "address", referencedColumnName = "id")
+    private Address address;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private List<Post> posts = new ArrayList<>();
+
+    public void addPost(Post post){
+        posts.add(post);
+    }
 }

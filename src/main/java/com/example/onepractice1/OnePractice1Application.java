@@ -12,7 +12,7 @@ public class OnePractice1Application {
         SpringApplication.run(OnePractice1Application.class, args);
 
 //        PostOfficeApp.execute()
-        KafkaRunner.start();
+//        KafkaRunner.start();
     }
 
 }

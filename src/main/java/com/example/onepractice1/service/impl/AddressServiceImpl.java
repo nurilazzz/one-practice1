@@ -24,10 +24,14 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.findAll();
     }
 
+    @Override
+    public Address getAddressById(Long id) {
+        return addressRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(String.format("Cannot find address with %s id", id)));
+    }
 
     @Override
     public Address saveAddress(Address address) {
         return addressRepository.save(address);
     }
-
 }

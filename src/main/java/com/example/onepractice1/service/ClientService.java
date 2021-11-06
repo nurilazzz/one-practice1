@@ -8,5 +8,13 @@ import java.util.List;
 public interface ClientService {
     List<Client> getAllClients();
 
+    Client getClientById(Long id);
+
     Client saveClient(Client client);
+
+    void deleteClientById(Long id);
+
+    Client addClientToPost(Long clientId, Long postId);
+
+    Client addClientToAddress(Long clientId, Long addressId);
 }
