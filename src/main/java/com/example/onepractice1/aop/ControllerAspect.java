@@ -13,8 +13,8 @@ import java.util.Arrays;
 
 @Aspect
 @Component
-public class Aspects {
-    private static final Logger logger = LoggerFactory.getLogger(Aspects.class);
+public class ControllerAspect {
+    private static final Logger logger = LoggerFactory.getLogger(ControllerAspect.class);
 
     @Pointcut("execution(* com.example.onepractice1.controller.*.*(..))")
     public void log() {
