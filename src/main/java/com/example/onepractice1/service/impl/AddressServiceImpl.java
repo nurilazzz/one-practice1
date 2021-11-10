@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,6 +33,6 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address saveAddress(Address address) {
-        return addressRepository.save(address);
+        return Optional.of(addressRepository.save(address)).orElseThrow();
     }
 }

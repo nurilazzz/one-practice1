@@ -7,12 +7,12 @@ import com.example.onepractice1.repository.ClientRepository;
 import com.example.onepractice1.service.AddressService;
 import com.example.onepractice1.service.ClientService;
 import com.example.onepractice1.service.PostService;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client saveClient(Client client) {
-        return clientRepository.save(client);
+        return Optional.of(clientRepository.save(client)).orElseThrow();
     }
 
     @Override

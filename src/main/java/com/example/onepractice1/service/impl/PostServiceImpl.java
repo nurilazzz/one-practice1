@@ -1,16 +1,15 @@
 package com.example.onepractice1.service.impl;
 
-import com.example.onepractice1.models.Client;
 import com.example.onepractice1.models.Post;
 import com.example.onepractice1.repository.PostRepository;
-import com.example.onepractice1.service.ClientService;
 import com.example.onepractice1.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -36,7 +35,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post savePost(Post post) {
-        return postRepository.save(post);
+        return Optional.of(postRepository.save(post)).orElseThrow();
     }
 
     @Override

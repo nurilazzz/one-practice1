@@ -25,10 +25,6 @@ public class AddressController {
     public ResponseEntity<List<Address>> getAllAddresses() {
         List<Address> addresses = addressService.getAllAddresses();
 
-        if (addresses == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
 
@@ -36,19 +32,11 @@ public class AddressController {
     public ResponseEntity<Address> getAddress(@PathVariable(name = "address_id") Long addressId) {
         Address address = addressService.getAddressById(addressId);
 
-        if (address == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         return new ResponseEntity<>(address, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Address> addAddress(@RequestBody Address address) {
-        if (address == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
         Address savedAddress = addressService.saveAddress(address);
 
         return new ResponseEntity<>(savedAddress, HttpStatus.CREATED);

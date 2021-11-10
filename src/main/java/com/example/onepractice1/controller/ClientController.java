@@ -24,19 +24,11 @@ public class ClientController {
     public ResponseEntity<Client> getClient(@PathVariable(name = "client_id") Long clientId) {
         Client client = clientService.getClientById(clientId);
 
-        if (client == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Client> addClient(@RequestBody Client client) {
-        if (client == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
         Client savedClient = clientService.saveClient(client);
 
         return new ResponseEntity<>(savedClient, HttpStatus.CREATED);
@@ -45,10 +37,6 @@ public class ClientController {
     @PutMapping("/{client_id}")
     public ResponseEntity<Client> updateClient(@PathVariable(name = "client_id") Long clientId,
                                                @RequestBody Client client) {
-        if (client == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
         Client updatedClient = clientService.saveClient(client);
 
         return new ResponseEntity<>(updatedClient, HttpStatus.CREATED);
@@ -56,12 +44,6 @@ public class ClientController {
 
     @DeleteMapping("/{client_id}")
     public ResponseEntity<Client> deleteClientById(@PathVariable(name = "client_id") Long clientId) {
-        Client client = clientService.getClientById(clientId);
-
-        if (client == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         clientService.deleteClientById(clientId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -70,10 +52,6 @@ public class ClientController {
     @GetMapping("/all")
     public ResponseEntity<List<Client>> getAllClients() {
         List<Client> clientsList = clientService.getAllClients();
-
-        if (clientsList == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
 
         return new ResponseEntity<>(clientsList, HttpStatus.OK);
     }

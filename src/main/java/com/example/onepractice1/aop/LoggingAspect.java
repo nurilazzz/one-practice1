@@ -1,6 +1,5 @@
 package com.example.onepractice1.aop;
 
-import com.example.onepractice1.models.Client;
 import com.example.onepractice1.models.Post;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
