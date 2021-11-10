@@ -1,7 +1,7 @@
 package com.example.onepractice1.controller;
 
 import com.example.onepractice1.models.Post;
-import com.example.onepractice1.models.dto.PostDto;
+import com.example.onepractice1.dto.PostDto;
 import com.example.onepractice1.service.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

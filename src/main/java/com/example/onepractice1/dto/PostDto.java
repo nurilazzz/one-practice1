@@ -1,4 +1,4 @@
-package com.example.onepractice1.models.dto;
+package com.example.onepractice1.dto;
 
 import com.example.onepractice1.models.Client;
 import lombok.AllArgsConstructor;
