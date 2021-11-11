@@ -1,7 +1,6 @@
 package com.example.onepractice1.controller;
 
 import com.example.onepractice1.models.Address;
-import com.example.onepractice1.models.Client;
 import com.example.onepractice1.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

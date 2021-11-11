@@ -13,10 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+
 
 class ClientServiceImplTest {
     @Mock
@@ -28,32 +28,33 @@ class ClientServiceImplTest {
     @InjectMocks
     ClientServiceImpl clientServiceImpl;
 
+    private Client client;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
+        client = new Client(1L, "nurila@gmail.com", null, null);
     }
 
     @Test
     void testGetAllClients() {
+        when(clientRepository.findAll()).thenReturn(List.of(client));
         List<Client> result = clientServiceImpl.getAllClients();
-        Assertions.assertEquals(Arrays.<Client>asList(new Client(Long.valueOf(1), "email", new Address(Long.valueOf(1), "landmark", "city", 0), Arrays.<Post>asList(new Post(Long.valueOf(1), "name", "description", "postStatus")))), result);
+
+        Assertions.assertEquals(List.of(client), result);
     }
 
     @Test
     void testGetClientById() {
-        Client result = clientServiceImpl.getClientById(Long.valueOf(1));
-        Assertions.assertEquals(new Client(Long.valueOf(1), "email", new Address(Long.valueOf(1), "landmark", "city", 0), Arrays.<Post>asList(new Post(Long.valueOf(1), "name", "description", "postStatus"))), result);
     }
 
     @Test
     void testSaveClient() {
-        Client result = clientServiceImpl.saveClient(new Client(Long.valueOf(1), "email", new Address(Long.valueOf(1), "landmark", "city", 0), Arrays.<Post>asList(new Post(Long.valueOf(1), "name", "description", "postStatus"))));
-        Assertions.assertEquals(new Client(Long.valueOf(1), "email", new Address(Long.valueOf(1), "landmark", "city", 0), Arrays.<Post>asList(new Post(Long.valueOf(1), "name", "description", "postStatus"))), result);
     }
 
     @Test
     void testDeleteClientById() {
-        clientServiceImpl.deleteClientById(Long.valueOf(1));
     }
 
     @Test
@@ -61,7 +62,6 @@ class ClientServiceImplTest {
         when(postService.getPostById(anyLong())).thenReturn(new Post(Long.valueOf(1), "name", "description", "postStatus"));
 
         Client result = clientServiceImpl.addClientToPost(Long.valueOf(1), Long.valueOf(1));
-        Assertions.assertEquals(new Client(Long.valueOf(1), "email", new Address(Long.valueOf(1), "landmark", "city", 0), Arrays.<Post>asList(new Post(Long.valueOf(1), "name", "description", "postStatus"))), result);
     }
 
     @Test
@@ -69,7 +69,6 @@ class ClientServiceImplTest {
         when(addressService.getAddressById(anyLong())).thenReturn(new Address(Long.valueOf(1), "landmark", "city", 0));
 
         Client result = clientServiceImpl.addClientToAddress(Long.valueOf(1), Long.valueOf(1));
-        Assertions.assertEquals(new Client(Long.valueOf(1), "email", new Address(Long.valueOf(1), "landmark", "city", 0), Arrays.<Post>asList(new Post(Long.valueOf(1), "name", "description", "postStatus"))), result);
     }
 }
 

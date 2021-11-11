@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -18,29 +17,32 @@ class AddressServiceImplTest {
     @Mock
     AddressRepository addressRepository;
     @InjectMocks
-    AddressServiceImpl addressServiceImpl;
+    AddressServiceImpl sut;
 
+    private Address address;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
+        address = new Address(1L,"KZ","Shymkent",2);
     }
 
     @Test
     void testGetAllAddresses() {
-        List<Address> result = addressServiceImpl.getAllAddresses();
-        Assertions.assertEquals(Arrays.<Address>asList(new Address(Long.valueOf(1), "landmark", "city", 0)), result);
+        when(addressRepository.findAll()).thenReturn(List.of(address));
+        List<Address> result  = sut.getAllAddresses();
+
+        Assertions.assertEquals(List.of(address), result);
     }
 
     @Test
     void testGetAddressById() {
-        Address result = addressServiceImpl.getAddressById(Long.valueOf(1));
-        Assertions.assertEquals(new Address(Long.valueOf(1), "landmark", "city", 0), result);
+
     }
 
     @Test
     void testSaveAddress() {
-        Address result = addressServiceImpl.saveAddress(new Address(Long.valueOf(1), "landmark", "city", 0));
-        Assertions.assertEquals(new Address(Long.valueOf(1), "landmark", "city", 0), result);
+
     }
 }
 

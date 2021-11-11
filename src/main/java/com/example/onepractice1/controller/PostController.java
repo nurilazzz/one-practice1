@@ -3,7 +3,6 @@ package com.example.onepractice1.controller;
 import com.example.onepractice1.models.Post;
 import com.example.onepractice1.dto.PostDto;
 import com.example.onepractice1.service.PostService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +14,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/post")
 public class PostController {
-    private final ModelMapper modelMapper;
-
     private final PostService postService;
 
     @Autowired
-    public PostController(ModelMapper modelMapper, PostService postService) {
-        this.modelMapper = modelMapper;
+    public PostController(PostService postService) {
         this.postService = postService;
     }
 

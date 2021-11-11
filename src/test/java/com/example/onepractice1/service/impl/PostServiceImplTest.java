@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -18,33 +17,36 @@ class PostServiceImplTest {
     @Mock
     PostRepository postRepository;
     @InjectMocks
-    PostServiceImpl postServiceImpl;
+    PostServiceImpl sut;
+
+    private Post post;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        post = new Post(1L, "name1", "desc2", "SENT");
     }
 
     @Test
     void testGetAllPosts() {
-        List<Post> result = postServiceImpl.getAllPosts();
-        Assertions.assertEquals(Arrays.<Post>asList(new Post(Long.valueOf(1), "name", "description", "postStatus")), result);
+        when(postRepository.findAll()).thenReturn(List.of(post));
+
+        List<Post> result = sut.getAllPosts();
+        Assertions.assertEquals(List.of(post), result);
     }
 
     @Test
     void testGetPostById() {
-        Post result = postServiceImpl.getPostById(Long.valueOf(1));
-        Assertions.assertEquals(new Post(Long.valueOf(1), "name", "description", "postStatus"), result);
     }
 
     @Test
     void testSavePost() {
-        Post result = postServiceImpl.savePost(new Post(Long.valueOf(1), "name", "description", "postStatus"));
-        Assertions.assertEquals(new Post(Long.valueOf(1), "name", "description", "postStatus"), result);
     }
 
     @Test
     void testDeletePostById() {
-        postServiceImpl.deletePostById(Long.valueOf(1));
+
     }
 }
+
+//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
