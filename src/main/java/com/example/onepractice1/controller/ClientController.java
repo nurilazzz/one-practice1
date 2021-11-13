@@ -34,41 +34,10 @@ public class ClientController {
         return new ResponseEntity<>(savedClient, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{client_id}")
-    public ResponseEntity<Client> updateClient(@PathVariable(name = "client_id") Long clientId,
-                                               @RequestBody Client client) {
-        Client updatedClient = clientService.saveClient(client);
-
-        return new ResponseEntity<>(updatedClient, HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/{client_id}")
-    public ResponseEntity<Client> deleteClientById(@PathVariable(name = "client_id") Long clientId) {
-        clientService.deleteClientById(clientId);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
     @GetMapping("/all")
     public ResponseEntity<List<Client>> getAllClients() {
         List<Client> clientsList = clientService.getAllClients();
 
         return new ResponseEntity<>(clientsList, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "{client_id}/post/{post_id}/add")
-    public ResponseEntity<Client> addPostToClient(@PathVariable(name = "client_id") Long clientId,
-                                                  @PathVariable(name = "post_id") Long postId) {
-        Client client = clientService.addClientToPost(clientId, postId);
-
-        return new ResponseEntity<>(client, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "{client_id}/address/{address_id}/add")
-    public ResponseEntity<Client> addAddressToClient(@PathVariable(name = "client_id") Long clientId,
-                                                  @PathVariable(name = "address_id") Long addressId) {
-        Client client = clientService.addClientToAddress(clientId, addressId);
-
-        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 }

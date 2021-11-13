@@ -20,13 +20,6 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Address>> getAllAddresses() {
-        List<Address> addresses = addressService.getAllAddresses();
-
-        return new ResponseEntity<>(addresses, HttpStatus.OK);
-    }
-
     @GetMapping("/{address_id}")
     public ResponseEntity<Address> getAddress(@PathVariable(name = "address_id") Long addressId) {
         Address address = addressService.getAddressById(addressId);

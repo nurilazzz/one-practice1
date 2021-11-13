@@ -50,21 +50,4 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.deleteById(id);
     }
 
-    @Transactional
-    @Override
-    public Client addClientToPost(Long clientId, Long postId) {
-        Client client = getClientById(clientId);
-        Post post = postService.getPostById(postId);
-        client.addPost(post);
-        return client;
-    }
-
-    @Transactional
-    @Override
-    public Client addClientToAddress(Long clientId, Long addressId) {
-        Client client = getClientById(clientId);
-        Address address = addressService.getAddressById(addressId);
-        client.setAddress(address);
-        return client;
-    }
 }

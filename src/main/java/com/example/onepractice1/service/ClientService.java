@@ -11,8 +11,4 @@ public interface ClientService {
     Client saveClient(Client client);
 
     void deleteClientById(Long id);
-
-    Client addClientToPost(Long clientId, Long postId);
-
-    Client addClientToAddress(Long clientId, Long addressId);
 }

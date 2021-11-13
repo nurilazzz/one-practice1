@@ -21,38 +21,11 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/{post_id}")
-    public ResponseEntity<PostDto> getPost(@PathVariable(name = "post_id") Long postId) {
-        Post post = postService.getPostById(postId);
-
-        return new ResponseEntity<>(convertToDto(post), HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<PostDto> addPost(@RequestBody Post post) {
         Post savedPost = postService.savePost(post);
 
         return new ResponseEntity<>(convertToDto(savedPost), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/update/{post_id}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable(name = "post_id") Long postId,
-                                              @RequestBody Post newPost) {
-        Post post = postService.getPostById(postId);
-
-        post.setName(newPost.getName());
-        post.setPostStatus(newPost.getPostStatus());
-
-        Post savedPost = postService.savePost(post);
-
-        return new ResponseEntity<>(convertToDto(savedPost), HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/delete/{post_id}")
-    public ResponseEntity<Post> deletePostById(@PathVariable(name = "post_id") Long postId) {
-        postService.deletePostById(postId);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/all")
