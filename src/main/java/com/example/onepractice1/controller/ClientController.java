@@ -20,13 +20,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/{client_id}")
-    public ResponseEntity<Client> getClient(@PathVariable(name = "client_id") Long clientId) {
-        Client client = clientService.getClientById(clientId);
-
-        return new ResponseEntity<>(client, HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<Client> addClient(@RequestBody Client client) {
         Client savedClient = clientService.saveClient(client);

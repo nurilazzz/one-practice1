@@ -1,7 +1,6 @@
 package com.example.onepractice1.service.impl;
 
 import com.example.onepractice1.models.Address;
-import com.example.onepractice1.models.Post;
 import com.example.onepractice1.repository.AddressRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

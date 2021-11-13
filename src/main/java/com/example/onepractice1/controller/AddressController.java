@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/addresses")
 public class AddressController {
 
     private final AddressService addressService;
@@ -20,11 +20,11 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/{address_id}")
-    public ResponseEntity<Address> getAddress(@PathVariable(name = "address_id") Long addressId) {
-        Address address = addressService.getAddressById(addressId);
+    @GetMapping("/")
+    public ResponseEntity<List<Address>> getAllAddresses() {
+        List<Address> addresses = addressService.getAllAddresses();
 
-        return new ResponseEntity<>(address, HttpStatus.OK);
+        return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
 
     @PostMapping

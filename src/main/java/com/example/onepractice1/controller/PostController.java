@@ -42,7 +42,7 @@ public class PostController {
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 
-    private PostDto convertToDto(Post post) {
+    public PostDto convertToDto(Post post) {
         PostDto postDto = new PostDto();
 
         postDto.setName(post.getName());
