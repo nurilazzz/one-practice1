@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -37,15 +38,29 @@ class PostServiceImplTest {
 
     @Test
     void testGetPostById() {
+        when(postRepository.findById(anyLong())).thenReturn(Optional.of(post));
+
+        Post result = sut.getPostById(1L);
+
+        Assertions.assertEquals(post, result);
     }
 
     @Test
     void testSavePost() {
+        doReturn(post).when(postRepository).save(any());
+
+        Post result = sut.savePost(post);
+
+        Assertions.assertNotNull(result, "The saved post should not be null");
     }
 
     @Test
     void testDeletePostById() {
+        when(postRepository.findById(post.getId())).thenReturn(Optional.of(post));
 
+        sut.deletePostById(post.getId());
+
+        verify(postRepository).deleteById(post.getId());
     }
 }
 
